@@ -1,0 +1,33 @@
+{
+  "name": "kanji-learn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && prisma db push --accept-data-loss && next build",
+    "start": "next start",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "next": "15.2.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.175.0",
+    "prisma": "^6.5.0",
+    "@prisma/client": "^6.5.0",
+    "next-auth": "^5.0.0-beta.29",
+    "bcryptjs": "^3.0.2",
+    "react-hook-form": "^7.54.2",
+    "gsap": "^3.12.7"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.175.0",
+    "@types/bcryptjs": "^2.4.6",
+    "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4"
+  }
+}

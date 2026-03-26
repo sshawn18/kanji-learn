@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  displayName   String?
+  assessedLevel String?
+  selfReported  Boolean   @default(false)
+  streak        Int       @default(0)
+  lastStudyDate DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  progress UserProgress[]
+  decks    Deck[]
+}
+
+model UserProgress {
+  id             String    @id @default(cuid())
+  userId         String
+  kanjiId        String
+  easeFactor     Float     @default(2.5)
+  interval       Int       @default(0)
+  repetitions    Int       @default(0)
+  nextReviewAt   DateTime  @default(now())
+  lastReviewedAt DateTime?
+  totalReviews   Int       @default(0)
+  correctReviews Int       @default(0)
+  deckId         String?
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck Deck? @relation(fields: [deckId], references: [id])
+
+  @@unique([userId, kanjiId])
+  @@index([userId, nextReviewAt])
+}
+
+model Deck {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kanjiItems DeckKanji[]
+  progress   UserProgress[]
+}
+
+model DeckKanji {
+  id       String   @id @default(cuid())
+  deckId   String
+  kanjiId  String
+  position Int      @default(0)
+  addedAt  DateTime @default(now())
+
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@unique([deckId, kanjiId])
+  @@index([deckId, position])
+}
