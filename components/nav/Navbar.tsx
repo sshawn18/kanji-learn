@@ -60,6 +60,7 @@ export function Navbar() {
             <>
               <Link
                 href="/dashboard"
+                className="nav-link-desktop"
                 style={{
                   color: "#374151",
                   textDecoration: "none",
@@ -76,6 +77,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/study"
+                className="nav-link-desktop"
                 style={{
                   color: "#374151",
                   textDecoration: "none",
@@ -92,6 +94,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/decks"
+                className="nav-link-desktop"
                 style={{
                   color: "#374151",
                   textDecoration: "none",
