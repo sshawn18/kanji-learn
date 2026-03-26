@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -14,8 +14,15 @@ interface SignupForm {
 
 export default function SignupPage() {
   const router = useRouter();
+  const { status } = useSession();
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      window.location.href = "/dashboard";
+    }
+  }, [status]);
 
   const {
     register,

@@ -2,6 +2,8 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import * as THREE from "three";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LEVEL_META = {
   N5: { totalKanji: 80, description: "Beginner", color: "#22C55E" },
@@ -117,6 +119,19 @@ function ThreeBackground() {
 }
 
 export default function HomePage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace("/dashboard");
+    }
+  }, [status, router]);
+
+  if (status === "authenticated" || status === "loading") {
+    return <div style={{ minHeight: "100vh", background: "#FAFAFA" }} />;
+  }
+
   return (
     <div style={{ minHeight: "100vh", background: "#FAFAFA" }}>
       {/* Hero Section */}
