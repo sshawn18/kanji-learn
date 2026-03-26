@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import type { JLPTLevel } from "@/lib/kanji-data/types";
+import { InstallBanner } from "@/components/InstallBanner";
 
 const LEVEL_META: Record<JLPTLevel, { totalKanji: number; description: string; color: string }> = {
   N5: { totalKanji: 80, description: "Beginner", color: "#22C55E" },
@@ -83,6 +84,8 @@ export default function DashboardPage() {
   return (
     <div style={{ minHeight: "calc(100vh - 64px)", background: "#FAFAFA", padding: "32px 24px 64px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+
+        <InstallBanner />
 
         {/* Header */}
         <div style={{ marginBottom: 32 }}>

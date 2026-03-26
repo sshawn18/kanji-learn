@@ -10,6 +10,8 @@ const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-noto", w
 export const metadata: Metadata = {
   title: "KanjiLearn — Master Japanese Kanji",
   description: "Learn all JLPT N5-N1 kanji with spaced repetition. Track progress, create custom decks, and level up efficiently.",
+  manifest: "/manifest.json",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "KanjiLearn" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
