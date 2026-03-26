@@ -59,7 +59,7 @@ export default function SignupPage() {
         return;
       }
 
-      router.push("/onboarding");
+      window.location.href = "/onboarding";
     } catch {
       setServerError("Something went wrong. Please try again.");
     } finally {

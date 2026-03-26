@@ -132,49 +132,93 @@ export function Navbar() {
                   {userInitial}
                 </button>
                 {dropdownOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: 0,
-                      top: "calc(100% + 8px)",
-                      background: "#fff",
-                      border: "1px solid #E5E7EB",
-                      borderRadius: 10,
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-                      minWidth: 180,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <div style={{ padding: "12px 16px", borderBottom: "1px solid #F3F4F6" }}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>
-                        {session.user?.name ?? "User"}
-                      </div>
-                      <div style={{ fontSize: 12, color: "#6B7280", marginTop: 2 }}>
-                        {session.user?.email}
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => {
-                        setDropdownOpen(false);
-                        signOut({ callbackUrl: "/" });
-                      }}
+                  <>
+                    {/* Backdrop to close on outside click */}
+                    <div
+                      onClick={() => setDropdownOpen(false)}
+                      style={{ position: "fixed", inset: 0, zIndex: 40 }}
+                    />
+                    <div
                       style={{
-                        width: "100%",
-                        background: "none",
-                        border: "none",
-                        padding: "10px 16px",
-                        cursor: "pointer",
-                        fontSize: 14,
-                        color: "#6B7280",
-                        textAlign: "left",
-                        display: "block",
+                        position: "absolute",
+                        right: 0,
+                        top: "calc(100% + 8px)",
+                        background: "#fff",
+                        border: "1px solid #E5E7EB",
+                        borderRadius: 12,
+                        boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+                        minWidth: 200,
+                        overflow: "hidden",
+                        zIndex: 50,
                       }}
-                      onMouseEnter={e => (e.currentTarget.style.background = "#F9FAFB")}
-                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                     >
-                      Sign out
-                    </button>
-                  </div>
+                      {/* User info */}
+                      <div style={{ padding: "12px 16px", borderBottom: "1px solid #F3F4F6" }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>
+                          {session.user?.name ?? "User"}
+                        </div>
+                        <div style={{ fontSize: 12, color: "#6B7280", marginTop: 2 }}>
+                          {session.user?.email}
+                        </div>
+                      </div>
+
+                      {/* Nav links (always visible in dropdown) */}
+                      {[
+                        { href: "/dashboard", label: "Dashboard", icon: "▦" },
+                        { href: "/study", label: "Study", icon: "📖" },
+                        { href: "/decks", label: "Decks", icon: "📂" },
+                      ].map(({ href, label, icon }) => (
+                        <Link
+                          key={href}
+                          href={href}
+                          onClick={() => setDropdownOpen(false)}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 10,
+                            padding: "10px 16px",
+                            fontSize: 14,
+                            color: "#374151",
+                            textDecoration: "none",
+                            fontWeight: 500,
+                            borderBottom: "1px solid #F9FAFB",
+                          }}
+                          onMouseEnter={e => (e.currentTarget.style.background = "#F9FAFB")}
+                          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                        >
+                          <span style={{ fontSize: 16 }}>{icon}</span>
+                          {label}
+                        </Link>
+                      ))}
+
+                      {/* Sign out */}
+                      <button
+                        onClick={() => {
+                          setDropdownOpen(false);
+                          signOut({ callbackUrl: "/" });
+                        }}
+                        style={{
+                          width: "100%",
+                          background: "none",
+                          border: "none",
+                          padding: "10px 16px",
+                          cursor: "pointer",
+                          fontSize: 14,
+                          color: "#DC2626",
+                          textAlign: "left",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          fontWeight: 500,
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.background = "#FEF2F2")}
+                        onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                      >
+                        <span style={{ fontSize: 16 }}>→</span>
+                        Sign out
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             </>

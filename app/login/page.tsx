@@ -36,11 +36,8 @@ export default function LoginPage() {
         // Fetch user to check if they have an assessed level
         const userRes = await fetch("/api/user");
         const user = await userRes.json();
-        if (!user.assessedLevel) {
-          router.push("/onboarding");
-        } else {
-          router.push("/dashboard");
-        }
+        // Use hard redirect so session cookie is picked up immediately
+        window.location.href = user.assessedLevel ? "/dashboard" : "/onboarding";
       }
     } catch {
       setServerError("Something went wrong. Please try again.");
