@@ -109,35 +109,33 @@ export default function StudyPage() {
                     background: "#fff",
                     border: "1px solid #F3F4F6",
                     borderRadius: 18,
-                    padding: "24px 28px",
+                    padding: "20px",
                     display: "flex",
                     alignItems: "center",
-                    gap: 24,
+                    gap: 16,
                     transition: "all 0.2s",
                     cursor: "pointer",
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.boxShadow = `0 6px 20px ${meta.color}18`;
-                    e.currentTarget.style.transform = "translateX(4px)";
                     e.currentTarget.style.borderColor = `${meta.color}60`;
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.transform = "translateX(0)";
                     e.currentTarget.style.borderColor = "#F3F4F6";
                   }}
                 >
                   {/* Level badge */}
                   <div
                     style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 16,
+                      width: 56,
+                      height: 56,
+                      borderRadius: 14,
                       background: `${meta.color}15`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: 900,
                       color: meta.color,
                       flexShrink: 0,
@@ -147,31 +145,31 @@ export default function StudyPage() {
                   </div>
 
                   {/* Info */}
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <h3 style={{ fontSize: 17, fontWeight: 700, color: "#111827", margin: 0 }}>{level}</h3>
-                      <span style={{ fontSize: 12, color: "#6B7280" }}>·</span>
-                      <span style={{ fontSize: 13, color: "#6B7280" }}>{meta.description}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2, flexWrap: "wrap" }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 700, color: "#111827", margin: 0 }}>{level}</h3>
+                      <span style={{ fontSize: 12, color: "#9CA3AF" }}>{meta.totalKanji} kanji · {meta.sets} sets</span>
                     </div>
-                    <div style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 10 }}>
-                      {meta.totalKanji} kanji · {meta.sets} sets
+                    <div style={{ fontSize: 12, color: "#6B7280", marginBottom: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {meta.description}
                     </div>
                     {/* Example kanji */}
-                    <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ display: "flex", gap: 5 }}>
                       {meta.examples.map(k => (
                         <span
                           key={k}
                           style={{
                             fontFamily: "'Noto Sans JP', sans-serif",
-                            fontSize: 18,
-                            width: 32,
-                            height: 32,
+                            fontSize: 16,
+                            width: 30,
+                            height: 30,
                             background: "#FAFAFA",
                             border: "1px solid #E5E7EB",
-                            borderRadius: 8,
+                            borderRadius: 7,
                             display: "inline-flex",
                             alignItems: "center",
                             justifyContent: "center",
+                            flexShrink: 0,
                           }}
                         >
                           {k}
@@ -180,25 +178,8 @@ export default function StudyPage() {
                     </div>
                   </div>
 
-                  {/* Progress bar + CTA */}
-                  <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <div
-                      style={{
-                        background: `${meta.color}15`,
-                        color: meta.color,
-                        fontSize: 13,
-                        fontWeight: 700,
-                        padding: "8px 18px",
-                        borderRadius: 100,
-                        marginBottom: 4,
-                      }}
-                    >
-                      Study →
-                    </div>
-                    <div style={{ fontSize: 12, color: "#9CA3AF" }}>
-                      {meta.sets} sets
-                    </div>
-                  </div>
+                  {/* Arrow */}
+                  <div style={{ color: "#D1D5DB", fontSize: 18, flexShrink: 0 }}>→</div>
                 </div>
               </Link>
             );
