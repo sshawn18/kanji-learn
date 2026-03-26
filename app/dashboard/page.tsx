@@ -85,10 +85,10 @@ export default function DashboardPage() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
 
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-              <h1 style={{ fontSize: 28, fontWeight: 800, color: "#111827", margin: 0, letterSpacing: "-0.5px" }}>
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ marginBottom: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
+              <h1 style={{ fontSize: "clamp(22px, 6vw, 28px)", fontWeight: 800, color: "#111827", margin: 0, letterSpacing: "-0.5px" }}>
                 Welcome back, {displayName.split(" ")[0]}!
               </h1>
               {(user?.streak ?? 0) > 0 && (
@@ -97,11 +97,9 @@ export default function DashboardPage() {
                 </div>
               )}
             </div>
-            <p style={{ fontSize: 15, color: "#6B7280", margin: 0 }}>
+            <p style={{ fontSize: 15, color: "#6B7280", margin: "0 0 16px" }}>
               {user?.assessedLevel ? `Studying ${user.assessedLevel} level kanji` : "Set up your level to get started"}
             </p>
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
             <Link
               href="/study"
               style={{ background: "#DC2626", color: "#fff", textDecoration: "none", fontSize: 14, fontWeight: 700, padding: "10px 20px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 6 }}
