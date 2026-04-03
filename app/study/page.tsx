@@ -4,11 +4,11 @@ import Link from "next/link";
 import type { JLPTLevel } from "@/lib/kanji-data/types";
 
 const LEVEL_META: Record<JLPTLevel, { totalKanji: number; description: string; color: string; sets: number; examples: string[] }> = {
-  N5: { totalKanji: 80, description: "Absolute beginner — everyday kanji", color: "#22C55E", sets: 4, examples: ["日", "月", "山", "水", "火"] },
-  N4: { totalKanji: 170, description: "Elementary — school-level kanji", color: "#3B82F6", sets: 9, examples: ["電", "話", "食", "学", "校"] },
-  N3: { totalKanji: 370, description: "Intermediate — newspaper kanji", color: "#F59E0B", sets: 19, examples: ["経", "済", "政", "治", "法"] },
-  N2: { totalKanji: 367, description: "Upper intermediate — business kanji", color: "#F97316", sets: 19, examples: ["継", "続", "訓", "練", "技"] },
-  N1: { totalKanji: 1232, description: "Advanced — literary kanji", color: "#DC2626", sets: 62, examples: ["鑑", "憧", "翻", "醸", "蒸"] },
+  N5: { totalKanji: 103, description: "Absolute beginner — everyday kanji", color: "#22C55E", sets: 6, examples: ["日", "月", "山", "水", "火"] },
+  N4: { totalKanji: 128, description: "Elementary — school-level kanji", color: "#3B82F6", sets: 7, examples: ["電", "話", "食", "学", "校"] },
+  N3: { totalKanji: 124, description: "Intermediate — newspaper kanji", color: "#F59E0B", sets: 7, examples: ["経", "済", "政", "治", "法"] },
+  N2: { totalKanji: 103, description: "Upper intermediate — business kanji", color: "#F97316", sets: 6, examples: ["継", "続", "訓", "練", "技"] },
+  N1: { totalKanji: 129, description: "Advanced — literary kanji", color: "#DC2626", sets: 7, examples: ["鑑", "憧", "翻", "醸", "蒸"] },
 };
 
 const LEVELS: JLPTLevel[] = ["N5", "N4", "N3", "N2", "N1"];
