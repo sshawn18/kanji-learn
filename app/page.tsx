@@ -6,11 +6,11 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LEVEL_META = {
-  N5: { totalKanji: 103, description: "Beginner", color: "#22C55E" },
-  N4: { totalKanji: 128, description: "Elementary", color: "#3B82F6" },
-  N3: { totalKanji: 124, description: "Intermediate", color: "#F59E0B" },
-  N2: { totalKanji: 103, description: "Upper Int.", color: "#F97316" },
-  N1: { totalKanji: 129, description: "Advanced", color: "#DC2626" },
+  N5: { totalKanji: 80, description: "Beginner", color: "#22C55E" },
+  N4: { totalKanji: 170, description: "Elementary", color: "#3B82F6" },
+  N3: { totalKanji: 370, description: "Intermediate", color: "#F59E0B" },
+  N2: { totalKanji: 367, description: "Upper Int.", color: "#F97316" },
+  N1: { totalKanji: 1232, description: "Advanced", color: "#DC2626" },
 };
 
 const KANJI_SAMPLES = ["日", "月", "山", "川", "木", "火", "水", "土", "金", "人", "大", "小", "中", "上", "下", "本", "国", "語", "学", "年"];
@@ -209,7 +209,7 @@ export default function HomePage() {
             }}
           >
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#DC2626", display: "inline-block" }} />
-            JLPT N5 → N1 · All 587 Kanji
+            JLPT N5 → N1 · Most Common Kanji
           </div>
 
           <h1
@@ -473,6 +473,28 @@ export default function HomePage() {
               </strong>{" "}
               kanji across all levels
             </span>
+          </div>
+
+          {/* Curated selection note */}
+          <div style={{
+            marginTop: 28,
+            background: "#FFF7ED",
+            border: "1px solid #FED7AA",
+            borderRadius: 12,
+            padding: "16px 20px",
+            display: "flex",
+            gap: 12,
+            alignItems: "flex-start",
+          }}>
+            <span style={{ fontSize: 20, flexShrink: 0 }}>💡</span>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#92400E", marginBottom: 4 }}>
+                Curated for maximum learning efficiency
+              </div>
+              <div style={{ fontSize: 13, color: "#B45309", lineHeight: 1.6 }}>
+                KanjiLearn currently includes the <strong>most frequently tested kanji</strong> from each JLPT level — the ones that appear most often in past exams and real-world usage. We prioritized quality over quantity so you spend time on what actually matters. Full level coverage is coming soon.
+              </div>
+            </div>
           </div>
         </div>
       </section>

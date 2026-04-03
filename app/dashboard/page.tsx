@@ -6,11 +6,11 @@ import type { JLPTLevel } from "@/lib/kanji-data/types";
 import { InstallBanner } from "@/components/InstallBanner";
 
 const LEVEL_META: Record<JLPTLevel, { totalKanji: number; description: string; color: string }> = {
-  N5: { totalKanji: 103, description: "Beginner", color: "#22C55E" },
-  N4: { totalKanji: 128, description: "Elementary", color: "#3B82F6" },
-  N3: { totalKanji: 124, description: "Intermediate", color: "#F59E0B" },
-  N2: { totalKanji: 103, description: "Upper Int.", color: "#F97316" },
-  N1: { totalKanji: 129, description: "Advanced", color: "#DC2626" },
+  N5: { totalKanji: 80, description: "Beginner", color: "#22C55E" },
+  N4: { totalKanji: 170, description: "Elementary", color: "#3B82F6" },
+  N3: { totalKanji: 370, description: "Intermediate", color: "#F59E0B" },
+  N2: { totalKanji: 367, description: "Upper Int.", color: "#F97316" },
+  N1: { totalKanji: 1232, description: "Advanced", color: "#DC2626" },
 };
 
 const LEVELS: JLPTLevel[] = ["N5", "N4", "N3", "N2", "N1"];
