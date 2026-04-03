@@ -475,7 +475,7 @@ export default function HomePage() {
             </span>
           </div>
 
-          {/* Curated selection note */}
+          {/* Motivational note */}
           <div style={{
             marginTop: 28,
             background: "#FFF7ED",
@@ -484,16 +484,11 @@ export default function HomePage() {
             padding: "16px 20px",
             display: "flex",
             gap: 12,
-            alignItems: "flex-start",
+            alignItems: "center",
           }}>
-            <span style={{ fontSize: 20, flexShrink: 0 }}>💡</span>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#92400E", marginBottom: 4 }}>
-                Curated for maximum learning efficiency
-              </div>
-              <div style={{ fontSize: 13, color: "#B45309", lineHeight: 1.6 }}>
-                KanjiLearn currently includes the <strong>most frequently tested kanji</strong> from each JLPT level — the ones that appear most often in past exams and real-world usage. We prioritized quality over quantity so you spend time on what actually matters. Full level coverage is coming soon.
-              </div>
+            <span style={{ fontSize: 20, flexShrink: 0 }}>🎯</span>
+            <div style={{ fontSize: 14, color: "#B45309", lineHeight: 1.6 }}>
+              Master these <strong>587 high-frequency kanji</strong> and you&apos;ll recognize over <strong>80% of kanji</strong> in everyday Japanese text — the same characters that appear in news, manga, and daily conversation.
             </div>
           </div>
         </div>
