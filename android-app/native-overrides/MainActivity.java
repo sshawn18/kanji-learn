@@ -1,6 +1,5 @@
 package com.kanjilearn.app;
 
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import com.getcapacitor.BridgeActivity;
