@@ -3,6 +3,7 @@ import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/nav/Navbar";
 import { Providers } from "./providers";
+import { CapacitorSplashHide } from "@/components/CapacitorSplashHide";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], variable: "--font-noto", weight: ["400", "500", "700", "900"] });
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${notoSansJP.variable}`}>
       <body>
         <Providers>
+          <CapacitorSplashHide />
           <Navbar />
           <main>{children}</main>
         </Providers>
