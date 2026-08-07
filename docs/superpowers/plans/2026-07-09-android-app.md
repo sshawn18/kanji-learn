@@ -12,6 +12,8 @@ Spec reference: `docs/superpowers/specs/2026-07-09-android-app-design.md`
 
 **Note on colors:** the spec's draft mentioned `#111827`-family for the splash/status-bar color. Inspecting `app/globals.css` shows the actual site background is `--bg: #FAFAFA` (light) and `#111827` is `--text-primary` (dark text color). This plan uses the correct value: `#FAFAFA` background, dark status bar icons/text.
 
+**Amendment (mid-implementation):** Task 5's release keystore requires local Java/`keytool` and durable secret passwords that only the user should generate — not something to rush through just to see the app working once. Task 5a below adds a **debug build path with zero signing setup** (Gradle's auto-generated debug keystore) so the app can be tried on a real device today. Task 5 (release keystore + Play Store signing) is deferred until the user is actually ready to publish — Task 8 below only covers verifying the debug build; a "Task 9: release build + Play Store publish" will follow later using Task 5's existing instructions once the keystore is set up.
+
 ---
 
 ### Task 1: Scaffold the Capacitor project
@@ -448,6 +450,115 @@ No commit for this task — nothing here touches the repository.
 
 ---
 
+### Task 5a: Debug build workflow (no signing setup required)
+
+**Files:**
+- Create: `.github/workflows/android-build-debug.yml`
+
+Added mid-implementation so the app can be tried on a real device today,
+without doing Task 5's keystore/secrets setup first. Debug builds use
+Gradle's auto-generated debug keystore (created automatically on first
+build, checked into no repo, requires no passwords) — Android allows
+installing debug-signed APKs on a device via direct sideload (with "install
+from unknown sources" allowed), just not via the Play Store.
+
+- [ ] **Step 1: Write the debug workflow file**
+
+Create `.github/workflows/android-build-debug.yml`. This mirrors
+`android-build.yml` (Task 4) up through `cap sync android`, then diverges:
+`assembleDebug` instead of `bundleRelease`, no keystore decode step, no
+signing properties, uploads an installable `.apk` instead of a Play-Store
+`.aab`.
+
+```yaml
+name: Android Debug Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android-app/**'
+      - '.github/workflows/android-build-debug.yml'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: android-app
+        run: npm ci
+
+      - name: Add Android platform
+        working-directory: android-app
+        run: npx cap add android
+
+      - name: Generate icons and splash screens
+        working-directory: android-app
+        run: npx @capacitor/assets generate --android
+
+      - name: Apply native overrides
+        working-directory: android-app
+        run: |
+          cp native-overrides/MainActivity.java android/app/src/main/java/com/kanjilearn/app/MainActivity.java
+          cp native-overrides/colors.xml android/app/src/main/res/values/colors.xml
+
+      - name: Sync Capacitor
+        working-directory: android-app
+        run: npx cap sync android
+
+      - name: Make gradlew executable
+        working-directory: android-app/android
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        working-directory: android-app/android
+        run: ./gradlew assembleDebug
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: kanji-learn-debug-apk
+          path: android-app/android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+Note this workflow shares the same `paths:` trigger as the release workflow
+(`android-app/**`), so both will run on the same push — that's intentional
+and harmless (they're independent jobs producing different artifacts), not
+a conflict.
+
+- [ ] **Step 2: Validate YAML syntax locally**
+
+```bash
+node -e "const yaml=require('js-yaml'); const fs=require('fs'); yaml.load(fs.readFileSync('/x/CC/kanji-learn/.github/workflows/android-build-debug.yml','utf8')); console.log('valid yaml')"
+```
+
+Expected: `valid yaml`
+
+- [ ] **Step 3: Commit**
+
+```bash
+cd /x/CC/kanji-learn && git add .github/workflows/android-build-debug.yml && git commit -m "Add debug-build CI workflow for device testing without release signing"
+```
+
+---
+
 ### Task 6: Hide the native splash screen once the site has loaded
 
 **Files:**
@@ -604,7 +715,16 @@ cd /x/CC/kanji-learn && git add app/globals.css && git commit -m "Disable oversc
 
 ### Task 8: Trigger the CI build and verify the signed artifact
 
-**Files:** none — this task exercises Task 4's workflow end-to-end.
+**Scope note (amendment):** per the mid-implementation decision above, this
+task now targets **Task 5a's debug workflow** (`android-build-debug.yml`,
+producing an unsigned-for-Play-Store-but-installable debug `.apk`) rather
+than the release workflow — Task 5's keystore/secrets aren't set up yet. The
+steps below reference `android-build.yml`/the signed `.aab`; substitute
+`android-build-debug.yml` and `kanji-learn-debug-apk` / `app-debug.apk`
+throughout. Verifying the actual signed release build (Task 4's workflow)
+happens later, after Task 5 is complete, as a follow-up "Task 9."
+
+**Files:** none — this task exercises Task 5a's debug workflow end-to-end.
 
 - [ ] **Step 1: Confirm android-app changes are pushed**
 
